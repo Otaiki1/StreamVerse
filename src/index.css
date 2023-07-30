@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .border-gradient {
+    border-image: linear-gradient(to right, #513EFF, #52E5FF);
+    border-image-slice: 1;
+  }
+}
+
+.notification-container {
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.notification-container.visible {
+  opacity: 1;
+}
+
+@keyframes notification-slide-out {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@font-face {
+  font-family: Inter-VariableFont ;
+  src: url("./assets/Inter-Medium.ttf");
+}
+
+@font-face {
+  font-family: Inter-Bold;
+  src: url("./assets/Inter-Bold.ttf");
+}
+
+.page1 {
+  @apply bg-gradient-to-r from-[#513EFF] to-[#52E5FF];
+}
+
+.page2 {
+  @apply bg-gradient-to-r from-[#FC83A7] to-[#52E5FF];
+}
+
+.page3 {
+  @apply bg-gradient-to-r from-[#8212A9] to-[#F3D7FD];
+}
+
+.page4 {
+  @apply bg-gradient-to-r from-[#E4FF3E] to-[#52E5FF];
+}
+
+.page5 {
+  @apply bg-gradient-to-r from-[#FB9778] to-[#52E5FF];
+}
+
+body {
+  @apply bg-[#121212] text-[#fff] overflow-hidden font-Inter-VariableFont;
+}
+
