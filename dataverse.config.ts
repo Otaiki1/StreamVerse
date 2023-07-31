@@ -1,10 +1,10 @@
 export const config = {
-  slug: "polyverseTest", // app id, need to match this regular: `^[a-zA-Z][a-zA-Z0-9_]*$`
-  name: "polyverse", // app name should NOT contain "-"
+  slug: "polyverseProtocol", // app id, need to match this regular: `^[a-zA-Z][a-zA-Z0-9_]*$`
+  name: "polyverseProtocol", // app name should NOT contain "-"
   logo: "",
-  website: "http://localhost:5173/", // you can use localhost:(port) for testing
+  website: "http://localhost:5173", // you can use localhost:(port) for testing
   defaultFolderName: "Untitled",
-  description: "A web3 content platform that revolutionizes the way creators monetize their work and engage with their audience.",
+  description: "",
   models: [
     {
       isPublicDomain: false, // default

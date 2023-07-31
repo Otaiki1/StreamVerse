@@ -1,30 +1,28 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAddress, useMetamask, useSigner } from "@thirdweb-dev/react";
+import { Modal } from "react-responsive-modal";
+import { ethers } from "ethers";
 
 import "react-responsive-modal/styles.css";
 import { FaBell } from "react-icons/fa";
-import {
-  Extension,
-  RuntimeConnector,
-  WALLET,
-} from "@dataverse/runtime-connector";
-import { FilecoinCalibrationTestnet } from "@thirdweb-dev/chains";
+
+// any other web3 ui lib is also acceptable
+import { useWeb3React } from "@web3-react/core";
 
 import { logo } from "../assets";
+import { ENV } from "@pushprotocol/restapi/src/lib/constants";
+import { Mumbai } from "@usedapp/core";
 import { useProtocolContext } from "../context";
+import FormField from "./FormField";
 import Fund from "./Fund";
-import { useDataverse } from "../context/DataverseProvider";
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const connect = useMetamask();
-  const runtimeConnector = new RuntimeConnector(Extension);
-  //const address = useAddress();
+  const address = useAddress();
   const { subscribeToNotification, subscribed } = useProtocolContext();
-  const { address, setAddress, contractCall } = useDataverse();
 
   const [modalOpen, setModalOpen] = useState(false);
-  const route = useNavigate();
 
   const openModal = () => {
     setModalOpen(true);
@@ -34,29 +32,7 @@ const Navbar = () => {
     setModalOpen(false);
   };
 
-  const createCapability = async () => {
-    const pkh = await runtimeConnector?.createCapability({
-      app: "PolyverseTest",
-      wallet: WALLET.METAMASK, // optional, if not connected
-    });
-    console.log(pkh);
-    return pkh;
-  };
 
-  const connectWallet = async () => {
-    try {
-      const wallet = await runtimeConnector?.connectWallet(WALLET.METAMASK);
-      await runtimeConnector?.switchNetwork(314159);
-      createCapability();
-      console.log(wallet);
-      setAddress(wallet?.address);
-      if (address) {
-        route("/dashboard")
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <nav className="w-full flex items-center h-16 justify-between px-12 py-6.5 border-b border-[#ffffff]">
@@ -72,17 +48,31 @@ const Navbar = () => {
 
       <div className=" flex items-center space-x-4">
         <button
-          //onClick={subscribeToNotification}
+          onClick={subscribeToNotification}
           className={`${subscribed ? "text-blue-700" : "text-white"} text-xl `}
         >
           <FaBell />
         </button>
         <button
-          onClick={connectWallet}
+          onClick={openModal}
           className="border-2 border-[#fff] px-6 py-1.5 rounded-full text-[#fff] font-medium text-[16px]"
         >
-          {!address ? "Connect Wallet" : `Dashboard`}
+          Add Funds
         </button>
+        <button
+          onClick={() =>
+            connect({
+              chainId: Mumbai.chainId,
+            })
+          }
+          className="border-2 border-[#fff] px-6 py-1.5 rounded-full text-[#fff] font-medium text-[16px]"
+        >
+          {!address
+            ? "Connect Wallet"
+            : `${address.slice(0, 9)}...${address.slice(36, 45)}`}
+        </button>
+    {/**modal */}
+    <Fund onClose={closeModal} setModalOpen={setModalOpen} openModal={openModal} modalOpen={modalOpen} />
       </div>
     </nav>
   );

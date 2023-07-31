@@ -17,6 +17,46 @@ const MainBody = () => {
   const handleTabClick = (itemActive: string) => {
     setActiveTab(itemActive);
   };
+
+  type songProps = {
+    id: number;
+    title: string;
+    artist: string;
+    duration: string;
+    album: string;
+    url: string;
+    date: string; // Add the 'date' property
+  };
+
+  const songs: songProps[] = [
+    {
+      id: 1,
+      title: "I can’t work it out",
+      artist: "Kaysong",
+      duration: "3:45",
+      album: "The other halves",
+      url: "https://cdn.tunezjam.com/audio/Sarz-Good-To-Me-Ft-Perfext-And-Gimba-(TunezJam.com).mp3",
+      date: "20-10-1999",
+    },
+    {
+      id: 2,
+      title: "Song 2",
+      artist: "Artist 2",
+      duration: "4:20",
+      album: "The other halves",
+      url: "https://cdn.tunezjam.com/audio/Burna-Boy-Ft-J-Balvin-Rollercoaster-(TunezJam.com).mp3",
+      date: "20-10-1999",
+    },
+    {
+      id: 3,
+      title: "Song 3",
+      artist: "Artist 3",
+      duration: "2:57",
+      album: "The other halves",
+      url: "https://cdn.tunezjam.com/audio/Rema-Spiderman--[TunezJam.com].mp3",
+      date: "20-10-1999",
+    },
+  ];
   return (
     <div className="flex-1 w-full h-screen">
       {/**categories */}

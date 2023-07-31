@@ -39,8 +39,8 @@ const Tabs = [
         active: "music"
     },
     {
-        name: "Creator",
-        active: "creator"
+        name: "Podcast",
+        active: "podcast"
     },
     {
         name: "Videos",

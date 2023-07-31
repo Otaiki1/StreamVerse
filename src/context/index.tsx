@@ -1,13 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import React from "react";
 import { ENV } from "@pushprotocol/restapi/src/lib/constants";
-import { Mumbai } from "@thirdweb-dev/chains";
+import { Mumbai } from "@usedapp/core";
 import { useAddress, useMetamask, useSigner } from "@thirdweb-dev/react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as PushAPI from "@pushprotocol/restapi";
 import { useLocalStorage } from "react-use";
-import { ethers } from 'ethers'
 
 interface ProtocolNode {
   children: React.ReactNode;
@@ -26,11 +25,7 @@ interface PushType {
 
 interface PolyverseContextType {
   subscribed: boolean | undefined;
-  sendNotification: (
-    title: string,
-    body: string,
-    type?: number
-  ) => Promise<void>;
+  sendNotification: (title: string, body: string, type?: number) => Promise<void>
   subscribeToNotification: () => Promise<void>;
 }
 
@@ -45,8 +40,7 @@ export const ProtocolProvider = ({ children }: ProtocolNode) => {
   const [userNotification, setUserNotification] = useState([]);
   const connect = useMetamask();
   const address = useAddress();
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner()
+  const signer = useSigner();
   const yourChannel = "0x4946a945aB5d49fa59E81A00Bb9d6677E0fcB8B4";
 
   useEffect(() => {
@@ -107,15 +101,11 @@ export const ProtocolProvider = ({ children }: ProtocolNode) => {
     }
   };
 
-  const sendNotification = async (
-    title: string,
-    body: string,
-    type?: number
-  ) => {
+  const sendNotification = async (title: string, body: string, type?: number) => {
     try {
       const apiResponse = await PushAPI.payloads.sendNotification({
         signer: signer,
-        type: 3,
+        type: 3, 
         identityType: 2,
         notification: {
           title: `${title}`,
@@ -127,11 +117,11 @@ export const ProtocolProvider = ({ children }: ProtocolNode) => {
           cta: "",
           img: "",
         },
-        recipients: `eip155:5:${address}`,
+        recipients: `eip155:5:${address}`, 
         channel: "eip155:5:0x4946a945aB5d49fa59E81A00Bb9d6677E0fcB8B4", // your channel address
         env: ENV.STAGING,
       });
-      console.log(apiResponse.data);
+      console.log(apiResponse.data)
     } catch (err) {
       console.error("Error: ", err);
     }
@@ -141,7 +131,7 @@ export const ProtocolProvider = ({ children }: ProtocolNode) => {
       value={{
         subscribed,
         subscribeToNotification,
-        sendNotification,
+        sendNotification
       }}
     >
       {children}

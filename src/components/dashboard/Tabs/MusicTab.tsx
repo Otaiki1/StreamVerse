@@ -23,7 +23,7 @@ const MusicTab: React.FC<TableProps> = ({ songs }: any) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [isShuffling, setIsShuffling] = useState(false)
+  const [isShuffling, setIsShuffling] = useState(false);
 
   useEffect(() => {
     const activeSongId = localStorage.getItem("activeSongId");
@@ -34,6 +34,11 @@ const MusicTab: React.FC<TableProps> = ({ songs }: any) => {
   }, [songs]);
 
   const handleSongClick = (song: Song) => {
+    if (isPlaying && audioRef.current) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+      return;
+    }
     setActive(song);
     setIsPlaying(true);
     if (audioRef.current) {
@@ -59,7 +64,7 @@ const MusicTab: React.FC<TableProps> = ({ songs }: any) => {
     const shuffledSongs = [...songs].sort(() => Math.random() - 0.5);
     setActive(shuffledSongs[0]);
     setIsPlaying(true);
-    setIsShuffling(true)
+    setIsShuffling(true);
     if (audioRef.current) {
       audioRef.current.src = shuffledSongs[0].url;
       audioRef.current.play();
@@ -137,7 +142,6 @@ const MusicTab: React.FC<TableProps> = ({ songs }: any) => {
             {songs.map((song: Song) => (
               <tr
                 key={song.id}
-                onClick={() => handleSongClick(song)}
                 className={`${
                   active && active.id === song.id ? "bg-gray-700" : ""
                 }`}
@@ -150,6 +154,7 @@ const MusicTab: React.FC<TableProps> = ({ songs }: any) => {
                   />
                   <div className="flex flex-col items-start text-start">
                     <span
+                      onClick={() => handleSongClick(song)}
                       className={`${
                         active && active.id === song.id
                           ? "text-[#35F415]"
@@ -158,10 +163,10 @@ const MusicTab: React.FC<TableProps> = ({ songs }: any) => {
                     >
                       {song.title}
                     </span>
-                    <Link to={`/profile/${song.artist}`}>
-                    <span className="text-[#C4C4C4] text-[16px] font-medium leading-[19.32px]">
-                      {song.artist}
-                    </span>
+                    <Link to="/profile">
+                      <span className="text-[#C4C4C4] text-[16px] font-medium leading-[19.32px]">
+                        {song.artist}
+                      </span>
                     </Link>
                   </div>
                 </td>
@@ -176,31 +181,35 @@ const MusicTab: React.FC<TableProps> = ({ songs }: any) => {
                 </td>
                 <td className="px-4 py-2 text-start">{song.album}</td>
                 <td className="px-4 py-2 text-start">{song.date}</td>
-                <td className="px-4 py-2 text-start text-[#35F415] text-[16px]">Subscribe</td>
+                <td
+                  className="px-4 py-2 text-start text-[#35F415] text-[16px]"
+                  onClick={() => alert("Helo")}
+                >
+                  Subscribe
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       {active && (
-          <MusicPlayer
-            song={active}
-            isPlaying={isPlaying}
-            onPlayPause={handlePlayPause}
-            onShuffle={handleShuffle}
-            handlePrev={handlePreviousSong}
-            handleNext={handleNextSong}
-            time={handleTimeUpdate}
-            currentTime={currentTime}
-            duration={duration}
-            setDuration={setDuration}
-            setCurrentTime={setCurrentTime}
-            setIsPlaying={setIsPlaying}
-            isShuffling={isShuffling}
-            refPath={audioRef}
-          />
+        <MusicPlayer
+          song={active}
+          isPlaying={isPlaying}
+          onPlayPause={handlePlayPause}
+          onShuffle={handleShuffle}
+          handlePrev={handlePreviousSong}
+          handleNext={handleNextSong}
+          time={handleTimeUpdate}
+          currentTime={currentTime}
+          duration={duration}
+          setDuration={setDuration}
+          setCurrentTime={setCurrentTime}
+          setIsPlaying={setIsPlaying}
+          isShuffling={isShuffling}
+          refPath={audioRef}
+        />
       )}
-    
     </>
   );
 };

@@ -3,7 +3,6 @@ import MusicTab from './dashboard/Tabs/MusicTab';
 import VideoTab from './dashboard/Tabs/VideoTab';
 import LiveTab from './dashboard/Tabs/LiveTab';
 import { Tabs } from '../constant';
-import Creator from './dashboard/Tabs/Creator';
 
 const Content = () => {
     const [active, setActive] = useState("music");
@@ -31,7 +30,7 @@ const Content = () => {
         {
           id: 1,
           title: "I can’t work it out",
-          artist: "Drake",
+          artist: "Kaysong",
           duration: "3:45",
           album: "The other halves",
           url: "https://cdn.tunezjam.com/audio/Sarz-Good-To-Me-Ft-Perfext-And-Gimba-(TunezJam.com).mp3",
@@ -78,7 +77,6 @@ const Content = () => {
     {activeTab === "music" && <MusicTab songs={songs} />}
     {activeTab === "videos" && <VideoTab />}
     {activeTab === "event" && <LiveTab />}
-    {activeTab === "creator" && <Creator />}
   </div>
   )
 }

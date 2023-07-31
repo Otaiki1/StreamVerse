@@ -1,16 +1,13 @@
 import React from "react";
 import { DNavbar, ProfileDetail, Sidebar, UserTicket } from "../components";
-import { Chat, ENV } from "@pushprotocol/uiweb";
+import { Chat } from "@pushprotocol/uiweb";
 import { ITheme } from "@pushprotocol/uiweb";
 import { page1 } from "../assets";
 import { ethers } from 'ethers'
-import { useAddress } from "@thirdweb-dev/react";
-import { useLocation } from "react-router-dom";
+import { usePolyverseContext } from "../context/Auth";
 
 const Profile = () => {
-   const address = useAddress()
-   const { state } = useLocation();
-   console.log(state)
+   const {address} = usePolyverseContext()
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner()
   return (
@@ -18,15 +15,14 @@ const Profile = () => {
       <DNavbar />
       <div className="flex items-start">
         <Sidebar />
-        <ProfileDetail state={state} />
+        <ProfileDetail />
         <UserTicket />
       </div>
       <Chat
-        account={`${address}`} //user address
-        supportAddress={`${state?.owner}`} //support address
+        account={address} //user address
+        supportAddress="0xd9c1CCAcD4B8a745e191b62BA3fcaD87229CB26d" //support address
         signer={signer}
-        env={ENV.STAGING}
-
+        env="staging"
       />
     </div>
   );

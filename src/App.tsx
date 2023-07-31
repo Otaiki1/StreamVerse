@@ -2,7 +2,7 @@ import { Header, Navbar, ProtectedRoute } from "./components";
 import React from "react";
 import { useWallet } from "./hooks";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home, Profile, SignIn, TicketDetails, Upload, VideoPlayer } from "./pages";
+import { Home, Profile, SignIn, TicketDetails, VideoPlayer } from "./pages";
 import Dashboard from "./pages/Dashboard";
 
 function App() {
@@ -20,8 +20,7 @@ function App() {
        </Route>
        <Route path="/dashboard/video" element={<VideoPlayer />} />
        <Route path="/ticket" element={<TicketDetails />} />
-       <Route path="/profile/:id" element={<Profile />} />
-       <Route path="/upload" element={<Upload />} />
+       <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );

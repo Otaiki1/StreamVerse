@@ -10,9 +10,7 @@ interface Props {
   isTextArea?: boolean;
   isFile?: boolean;
   value?: any;
-  handleChange?: ((e: any) => void) | undefined;
-  isDark?: boolean;
-  isDate?: boolean;
+  handleChange?:((e: any) => void) | undefined;
 }
 
 const FormField = ({
@@ -26,16 +24,10 @@ const FormField = ({
   isFile,
   value,
   handleChange,
-  isDark,
-  isDate,
 }: Props) => {
   return (
     <label className="space-y-2 flex-col flex items-start w-full" htmlFor="">
-      <span
-        className={`font-bold font-Inter-Bold w-full text-[16px] ${
-          isDark ? "text-[#fff]" : "text-[#3A3A3A]"
-        }`}
-      >
+      <span className="text-[#3A3A3A] font-bold font-Inter-Bold w-full text-[12px] ">
         {title}
       </span>
       {isInput && (
@@ -51,7 +43,7 @@ const FormField = ({
           onChange={handleChange}
           type="file"
           name="file_upload"
-          className="w-full border-2 rounded-[10px] text-black bg-white border-[#C4C4C4] outline-none focus:outline-none px-4 py-1"
+          className="w-full border-2 rounded-[10px] text-black border-[#C4C4C4] outline-none focus:outline-none px-4 py-1"
         />
       )}
       {isTextArea && (
@@ -63,18 +55,11 @@ const FormField = ({
         />
       )}
 
-      {isDate && (
-        <input
-          type="datetime-local"
-          className="w-full border-2 rounded-[10px] text-black border-[#C4C4C4] outline-none focus:outline-none px-4 py-2.5"
-        />
-      )}
-
       {isCategory && (
         <select
-          onChange={handleChange}
+        onChange={handleChange}
           value={value}
-          className={`min-w-full block outline-none text-black border-[#C4C4C4] bg-white border text-Foundation bg-transparent px-4 py-2.5 rounded-[10px]`}
+          className={`min-w-full block outline-none text-black border-[#C4C4C4] border text-Foundation bg-transparent px-4 py-2.5 rounded-[10px]`}
         >
           {item?.map((cate, i) => (
             <option
