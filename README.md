@@ -1,109 +1,164 @@
-<br/>
-<p align="center">
-<a href=" " target="_blank">
-<img src="./logo.svg" width="180" alt="Dataverse logo">
-</a >
-</p >
-<br/>
+## Hi there 👋
 
-# Create Dataverse App
 
-The starter kit for developers to build their own application on top of [Dataverse](https://dataverse-os.com) operating system.
 
-- Read [Developer Documentation](https://gitbook.dataverse-os.com/) to integrate [Runtime-SDK](https://github.com/dataverse-os/runtime-connector)
-- Download [Data Wallet](https://github.com/dataverse-os/create-dataverse-app/releases/tag/DataWallet-0.5.33) to run OS Kernel and expose system calls to devs (Chrome version will be ready soon)
+<a name="readme-top"></a>
 
-Note: Ensure your Metamask version is 10.28.3 or newer before you try data wallet.
 
-# Getting Started
-
-## Environment
-
-Install the dependencies:
-
-```bash
-git clone https://github.com/dataverse-os/create-dataverse-app
-cd create-dataverse-app
-pnpm install
-```
-
-## Run demo
+<div align="center">
   
-  ```bash
-  pnpm dev
-  ```
-you can see the demo app running at http://localhost:5173.
-<p align="center">
-<a href=" " target="_blank">
-<img src="https://i.imgur.com/xaLxrHh.png" width="300" alt="Dataverse logo">
-</a >
-</p >
 
-## Publish Your App
+  <h3><b>STREAMVERSE</b></h3>
 
-Set your dApp private key in `.env` and open `dataverse.config.js` to check configurable variables:
+</div>
 
-```typescript
-  export const config = {
-  slug: ...,
-  name: ...,
-  logo: ...,
-  website: ...,
-  defaultFolderName: ...,
-  description: ...,
-  models: [...],
-  ceramicUrl: ...
-};
-```
+<!-- TABLE OF CONTENTS -->
 
-These are basic information for your dApp, please update fields of `slug` and `name`. You can customize dApp's business logic with `models` field. Here is an example: 
+# 📗 Table of Contents
 
-```typescript
-models: [
-    {
-      isPublicDomain: false,
-      schemaName: "post.graphql",
-    },
-    {
-      isPublicDomain: true,
-      schemaName: "profile.graphql",
-    },
-  ],
-```
+- [📗 Table of Contents](#-table-of-contents)
+- [📖 StreamVerse ](#-streamverse-)
+  - [🛠 Built With ](#-built-with-)
+    - [Tech Stack ](#tech-stack-)
+    - [Key Features ](#key-features-)
+  - [🚀 Live Demo ](#-live-demo-)
+  - [👥 Authors ](#-authors-)
+  - [🔭 Future Features ](#-future-features-)
+  - [🤝 Contributing ](#-contributing-)
+  - [📝 License ](#-license-)
 
-The `schemaName` links to the corresponding `models/_.graphql` file, defining your [ComposeDB](https://composedb.js.org/docs/0.4.x/guides/data-modeling/schemas) models & schemas. By default, you need to set `isPublicDomain=false` to ensure cross-app data security. If you set `isPublicDomain=true`, another dApp can compose this data model, indexing public data from your databases. 
+<!-- PROJECT DESCRIPTION -->
 
-You can also select which Ceramic endpoint your dApp is connecting to, to store data models and actual user data. App data on dataverse test ceramic node could be cleared regularly, so do NOT put anything important on test network. If you are running a production-ready dApp, you are suggested to run your own Ceramic node. You can deploy your own ceramic node using our tools [dapp-backend](https://github.com/dataverse-os/dapp-backend). Note that if your want to use your own ceramic, you need to ensure the url is accessible.
+# 📖 StreamVerse <a name="about-project"></a>
 
-Finally you can publish your dApp: 
+**StureamVerse** is a DAPP that allows consumers control their subscriptions and creators earn at the go
 
-```bash
-pnpm create-dataverse-app
-```
-This will deploy models to ceramic node you specify, and register data resources to DappTable. You can find resourceIDs in `output/app.json`, including your specific logic as well as file system. 
+## 🛠 Built With <a name="built-with"></a>
 
-## Interact with Deployed App
+### Tech Stack <a name="tech-stack"></a>
 
-We provide simple hooks & components in `src/`. Now run the frontend to interact with your dApp logic: 
+<details>
+  <summary>Client</summary>
+  <ul>
+    <li><a href="">ReactJS</a></li>
+    <li><a href="">TailWindCSS</a></li>
+  </ul>
+</details>
 
-```typescript
-  // Connect user's identity
-  const { did, connectIdentity } = useIdentity();
-  const did = await connectIdentity();
 
-  // Event streams
-  const {
-    contentRecord: postContentRecord,
-    loadContent: loadPostContent,
-    createPublicContent,
-    createPrivateContent,
-    createDatatokenContent,
-    monetizeContent,
-    updateContent,
-    unlockContent,
-  } = useContent();
-```
 
-# Contributing
+<details>
+<summary>Backend</summary>
+  <ul>
+    <li><a href="https://www.json.org">Solidity</a></li>
+    <li><a href="https://www.json.org">Superfluid</a></li>
+  </ul>
+</details>
 
-Contributions are always welcome! Open a PR or an issue!
+<!-- Features -->
+
+### Key Features <a name="key-features"></a>
+
+> Describe between 1-3 key features of the application.
+
+- **The Dashboard**
+- **Stream/Subscribe section**
+- **Convert funds section**
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- LIVE DEMO -->
+
+## 🚀 Live Demo <a name="live-demo"></a>
+
+- [Live Demo Link](https://google.com)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!
+
+<!-- AUTHORS -->
+
+## 👥 Authors <a name="authors"></a>
+
+👤 **Abdulsamad Sadiq**
+
+- GitHub: [@githubhandle](https://github.com/Otaiki1)
+- Twitter: [@twitterhandle](https://twitter.com/otaikisadiq)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/abdulsamad-sadiq-30026a193)
+
+👤 **Joseph Omotade**
+
+- GitHub: [@githubhandle](https://github.com/joeephwild)
+
+👤 **Caleb Peterson**
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- FUTURE FEATURES -->
+
+## 🔭 Future Features <a name="future-features"></a>
+
+
+- [ ] **Make superfluid seamless**
+- [ ] **Auto stream on content consme**
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- CONTRIBUTING -->
+
+## 🤝 Contributing <a name="contributing"></a>
+
+Contributions, issues, and feature requests are welcome!
+
+Feel free to check the [issues page](../../issues/).
+<!-- 
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
+
+<!-- SUPPORT -->
+<!-- 
+## ⭐️ Show your support <a name="support"></a>
+
+> Write a message to encourage readers to support your project
+
+If you like this project...
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- ACKNOWLEDGEMENTS -->
+
+<!-- ## 🙏 Acknowledgments <a name="acknowledgements"></a> -->
+<!-- 
+> Give credit to everyone who inspired your codebase.
+<!--  -->
+<!-- I would like to thank... --> -->
+
+<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> --> -->
+
+<!-- FAQ (optional) -->
+
+<!-- ## ❓ FAQ (OPTIONAL) <a name="faq"></a>
+
+> Add at least 2 questions new developers would ask when they decide to use your project.
+
+- **[Question_1]**
+
+  - [Answer_1]
+
+- **[Question_2]**
+
+  - [Answer_2] -->
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- LICENSE -->
+
+## 📝 License <a name="license"></a>
+
+This project is [MIT](./LICENSE) licensed.
+
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
