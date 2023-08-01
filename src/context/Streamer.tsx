@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { Framework } from "@superfluid-finance/sdk-core";
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { useAddress } from "@thirdweb-dev/react";
 
 interface StreamerNode {
@@ -8,9 +8,9 @@ interface StreamerNode {
 }
 
 interface StreamerContextType {
-  createFlow: (_receiver: string, _flowRate: ethers.BigNumber) => Promise<void>;
+  createFlow: (_receiver: string, _flowRate: Number) => Promise<void>;
   deleteFlow: (_receiver: string) => Promise<void>;
-  userBalance: string;
+  streamerBalance: string;
 }
 
 const StreamerContext = createContext<StreamerContextType | null>(null);
@@ -48,7 +48,7 @@ export const StreamerProvider = ({ children }: StreamerNode) => {
     }
   }
 
-  async function deleteflow(_receiver: string) {
+  async function deleteFlow(_receiver: string) {
     //0.024615460466057584 maticX balance -> 0.005499219 maticX/hour
     //1 maticX balance -> 0.223405083 maticX/hour
 
@@ -79,7 +79,7 @@ export const StreamerProvider = ({ children }: StreamerNode) => {
     }
   }
 
-  async function createFlow(_receiver: string, _rate: ethers.BigNumber) {
+  async function createFlow(_receiver: string, _rate: Number) {
     //0.024615460466057584 maticX balance -> 0.005499219 maticX/hour
     const ratePerSeconds = Math.round(
       (Number(_rate) / 3600) * 1000000000000000000
@@ -110,13 +110,35 @@ export const StreamerProvider = ({ children }: StreamerNode) => {
 
       const createflowlog = await createflow.exec(signer);
 
-      setInterval(() => {
-        if (address.length > 0) {
-          fetchStreamBalance();
-        }
-      }, 2500);
+      // setInterval(() => {
+      //     if (address.length > 0) {
+      //     fetchStreamBalance();
+      //     }
+      // }, 2500);
     } catch (error) {
       console.log("createflowerror: " + error);
     }
   }
+
+  return (
+    <StreamerContext.Provider
+      value={{
+        createFlow,
+        deleteFlow,
+        streamerBalance,
+      }}
+    >
+      {children}
+    </StreamerContext.Provider>
+  );
+};
+
+export const useStreamerContext = (): StreamerContextType => {
+  const contextValue = useContext(StreamerContext);
+  if (contextValue === null) {
+    throw new Error(
+      "useErrandContext must be used within a StreamVerseProvider"
+    );
+  }
+  return contextValue;
 };

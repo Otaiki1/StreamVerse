@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import MusicPlayer from "../MusicPlayer";
 import { page1, time } from "../../../assets";
 import { Link } from "react-router-dom";
+import SetStream from "../../SetStream";
+import Fund from "../../Fund";
 
 interface Song {
   id: number;
@@ -24,6 +26,16 @@ const MusicTab: React.FC<TableProps> = ({ songs }: any) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isShuffling, setIsShuffling] = useState(false);
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   useEffect(() => {
     const activeSongId = localStorage.getItem("activeSongId");
@@ -183,10 +195,18 @@ const MusicTab: React.FC<TableProps> = ({ songs }: any) => {
                 <td className="px-4 py-2 text-start">{song.date}</td>
                 <td
                   className="px-4 py-2 text-start text-[#35F415] text-[16px]"
-                  onClick={() => alert("Helo")}
+                  onClick={() => openModal()}
                 >
                   Subscribe
                 </td>
+                {/**modal */}
+
+                <SetStream
+                  onClose={closeModal}
+                  setModalOpen={setModalOpen}
+                  openModal={openModal}
+                  modalOpen={modalOpen}
+                />
               </tr>
             ))}
           </tbody>

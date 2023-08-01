@@ -29,7 +29,10 @@ const Fund = ({ onClose, openModal, setModalOpen, modalOpen }: Props) => {
 
   return (
     <Modal open={modalOpen} onClose={onClose} center>
-      <h2>Add Funds</h2>
+      <h2 className="text-[#000]">Add Funds</h2>
+      <p className="text-[#000]">
+        Convert your funds into streamVerse streamables cUsd to cUsdX
+      </p>
       <form onSubmit={handleFormSubmit}>
         <FormField
           title="Amount"

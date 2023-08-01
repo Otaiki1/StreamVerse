@@ -10,7 +10,8 @@ interface Props {
   isTextArea?: boolean;
   isFile?: boolean;
   value?: any;
-  handleChange?:((e: any) => void) | undefined;
+  handleChange?: ((e: any) => void) | undefined;
+  placeHolder?: string;
 }
 
 const FormField = ({
@@ -24,6 +25,7 @@ const FormField = ({
   isFile,
   value,
   handleChange,
+  placeHolder,
 }: Props) => {
   return (
     <label className="space-y-2 flex-col flex items-start w-full" htmlFor="">
@@ -35,6 +37,7 @@ const FormField = ({
           value={value}
           onChange={handleChange}
           type={type}
+          placeholder={placeHolder}
           className="w-full border-2 rounded-[10px] text-black border-[#C4C4C4] outline-none focus:outline-none px-4 py-2.5"
         />
       )}
@@ -43,6 +46,7 @@ const FormField = ({
           onChange={handleChange}
           type="file"
           name="file_upload"
+          placeholder={placeHolder}
           className="w-full border-2 rounded-[10px] text-black border-[#C4C4C4] outline-none focus:outline-none px-4 py-1"
         />
       )}
@@ -57,7 +61,7 @@ const FormField = ({
 
       {isCategory && (
         <select
-        onChange={handleChange}
+          onChange={handleChange}
           value={value}
           className={`min-w-full block outline-none text-black border-[#C4C4C4] border text-Foundation bg-transparent px-4 py-2.5 rounded-[10px]`}
         >
